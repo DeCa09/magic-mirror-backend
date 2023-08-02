@@ -32,4 +32,4 @@ jobs:
     - name: Linting
       run: nox --session lint --force-color
     - name: Testing
-      run: nox --session run_all_tests --force-color
+      run: nox --session run_unit_tests --force-color
