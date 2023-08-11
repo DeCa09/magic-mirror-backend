@@ -92,7 +92,6 @@ source = ["src"]
 [tool.coverage.run]
 branch = true
 source = [
-    "magic_mirror_backend",
      "chatbot",
      ]
 
