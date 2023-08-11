@@ -6,11 +6,15 @@ authors = ["Demir Catovic <d.catovic9@gmail.com>"]
 readme = "README.md"
 packages = [
     { include = "chatbot", from = "src/magic_mirror_backend" }, 
+    { include = "api", from = "src/magic_mirror_backend" },
     ]
 
 [tool.poetry.dependencies]
 python = "^3.11"
-fastapi = "^0.101.0"
+fastapi = {extras = ["uvicorn"], version = "^0.101.0"}
+uvicorn = {extras = ["standard"], version = "^0.23.2"}
+transformers = {extras = ["torch"], version = "^4.31.0"}
+langchain = "^0.0.262"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
@@ -61,7 +65,7 @@ target-version = ["py311"]
 
 [tool.isort]
 profile = "black"
-known_first_party = ["chatbot"]
+known_first_party = ["chatbot", "api"]
 
 
 [tool.mypy]
@@ -94,6 +98,7 @@ source = ["src"]
 branch = true
 source = [
      "chatbot",
+     "api",
      ]
 
 
