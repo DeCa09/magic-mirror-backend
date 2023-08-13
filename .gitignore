@@ -133,3 +133,6 @@ dmypy.json
 
 # ruff linter
 .ruff_cache/
+
+# model artifacts
+model_artifacts
