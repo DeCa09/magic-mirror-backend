@@ -31,8 +31,8 @@ def get_prompt(instruction, new_system_prompt=DEFAULT_SYSTEM_PROMPT ):
 
 
 system_prompt = "You are an advanced assistant that excels at translation. "
-instruction = "Convert the following text from English to French:\n\n {text}"
-template = get_prompt(instruction, system_prompt)
+instruction = "Answer the following prompt efficiently in less than 500 words:\n\n {text}"
+template = get_prompt(instruction)
 #print(template)
 
 
@@ -43,7 +43,7 @@ class LlamaChatbot(Chatbot):
     def __init__(self) -> None:
         # load model
         tokenizer = AutoTokenizer.from_pretrained(PATH_TO_MODEL_ARTIFACTS)
-        model = LlamaForCausalLM.from_pretrained(PATH_TO_MODEL_ARTIFACTS, use_safetensors=True)
+        model = LlamaForCausalLM.from_pretrained(PATH_TO_MODEL_ARTIFACTS, use_safetensors=True, device_map="auto", load_in_4bit=True)
 
         chatbot_pipeline = pipeline(
             task="text-generation",
