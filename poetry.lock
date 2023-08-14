@@ -222,6 +222,18 @@ tests = ["attrs[tests-no-zope]", "zope-interface"]
 tests-no-zope = ["cloudpickle", "hypothesis", "mypy (>=1.1.1)", "pympler", "pytest (>=4.3.0)", "pytest-mypy-plugins", "pytest-xdist[psutil]"]
 
 [[package]]
+name = "bitsandbytes"
+version = "0.41.1"
+description = "k-bit optimizers and matrix multiplication routines."
+category = "main"
+optional = false
+python-versions = "*"
+files = [
+    {file = "bitsandbytes-0.41.1-py3-none-any.whl", hash = "sha256:b25228c27636367f222232ed4d1e1502eedd2064be215633734fb8ea0c1c65f4"},
+    {file = "bitsandbytes-0.41.1.tar.gz", hash = "sha256:b3f8e7e1e5f88d4813d10ebd4072034ba6a18eca7f0e255376f8320e5499032c"},
+]
+
+[[package]]
 name = "black"
 version = "22.12.0"
 description = "The uncompromising code formatter."
@@ -2476,4 +2488,4 @@ multidict = ">=4.0"
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "540789ad0c03f5890c96b7e9c8be34febd3997294417c9abe2fe76e6163bda9c"
+content-hash = "2ab142a49d5e8fbeb27eb4798d0220d0f0af41e00d74e00a71ee5a04be8654b2"
