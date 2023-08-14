@@ -42,4 +42,4 @@ async def chatbot(user_input: str) -> dict:
     llama_chatbot = LlamaChatbot()
     response = llama_chatbot(user_input)
 
-    return {"chatbot_response": f"Hello from ze chatbot: {response}"}
+    return {"chatbot_response": response}
