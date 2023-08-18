@@ -10,12 +10,13 @@ packages = [
     ]
 
 [tool.poetry.dependencies]
-python = "^3.11"
+python = "==3.11.4"
 fastapi = {extras = ["uvicorn"], version = "^0.101.0"}
 uvicorn = {extras = ["standard"], version = "^0.23.2"}
 transformers = {extras = ["torch"], version = "^4.31.0"}
 langchain = "^0.0.262"
 bitsandbytes = "^0.41.1"
+scipy = "^1.11.2"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
