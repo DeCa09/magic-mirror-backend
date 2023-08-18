@@ -1,16 +1,12 @@
 import os
 
-from transformers import pipeline, LlamaForCausalLM, AutoTokenizer
-
-from langchain import HuggingFacePipeline
-from langchain import PromptTemplate,  LLMChain
+from langchain import HuggingFacePipeline, LLMChain, PromptTemplate
+from transformers import AutoTokenizer, LlamaForCausalLM, pipeline
 
 from chatbot.chatbot import Chatbot
 
 DIR_PATH = os.path.dirname(os.path.realpath(__file__))
 PATH_TO_MODEL_ARTIFACTS = os.path.join(DIR_PATH, "..", "..", "..", "model_artifacts/")
-
-
 
 
 """
@@ -24,34 +20,39 @@ You are a helpful, respectful and honest assistant. Always answer as helpfully a
 
 If a question does not make any sense, or is not factually coherent, explain why instead of answering something not correct. If you don't know the answer to a question, please don't share false information."""
 
-def get_prompt(instruction, new_system_prompt=DEFAULT_SYSTEM_PROMPT ):
+
+def get_prompt(instruction, new_system_prompt=DEFAULT_SYSTEM_PROMPT):
     SYSTEM_PROMPT = B_SYS + new_system_prompt + E_SYS
-    prompt_template =  B_INST + SYSTEM_PROMPT + instruction + E_INST
+    prompt_template = B_INST + SYSTEM_PROMPT + instruction + E_INST
     return prompt_template
 
 
 system_prompt = "You are an advanced assistant that excels at translation. "
-instruction = "Answer the following prompt efficiently in less than 500 words:\n\n {text}"
+instruction = (
+    "Answer the following prompt efficiently in less than 500 words:\n\n {text}"
+)
 template = get_prompt(instruction)
-#print(template)
-
-
-
+# print(template)
 
 
 class LlamaChatbot(Chatbot):
     def __init__(self) -> None:
         # load model
         tokenizer = AutoTokenizer.from_pretrained(PATH_TO_MODEL_ARTIFACTS)
-        model = LlamaForCausalLM.from_pretrained(PATH_TO_MODEL_ARTIFACTS, use_safetensors=True, device_map="auto", load_in_4bit=True)
+        model = LlamaForCausalLM.from_pretrained(
+            PATH_TO_MODEL_ARTIFACTS,
+            use_safetensors=True,
+            device_map="auto",
+            load_in_4bit=True,
+        )
 
         chatbot_pipeline = pipeline(
             task="text-generation",
             model=model,
             tokenizer=tokenizer,
-            device_map='auto',
-            max_new_tokens=512
-            )
+            device_map="auto",
+            max_new_tokens=512,
+        )
 
         llm = HuggingFacePipeline(pipeline=chatbot_pipeline)
         prompt = PromptTemplate(template=template, input_variables=["text"])
@@ -61,8 +62,6 @@ class LlamaChatbot(Chatbot):
         self.__chatbot = llm_chain
 
         print("Alles laueft wie geschmiert bro.")
-
-
 
     def __call__(self, user_input: str) -> int:
         print("The __call__ method has been executed.")

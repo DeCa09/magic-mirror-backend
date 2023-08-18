@@ -1,9 +1,8 @@
 import json
 
-from fastapi import FastAPI # type: ignore
+from fastapi import FastAPI  # type: ignore
 
 from chatbot.llama_chatbot import LlamaChatbot
-
 
 app = FastAPI()
 
@@ -12,6 +11,7 @@ app = FastAPI()
 llama_chatbot = LlamaChatbot()
 print(json.dumps("Dummy model is loaded."))
 print(type(llama_chatbot))
+
 
 @app.get("/")
 async def root() -> dict:
@@ -25,7 +25,6 @@ async def root() -> dict:
     """
     response = {"message": "Hello World"}
     return response
-
 
 
 @app.get("/chatbot")
