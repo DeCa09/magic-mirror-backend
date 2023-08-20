@@ -27,9 +27,9 @@ def get_prompt(instruction, new_system_prompt=DEFAULT_SYSTEM_PROMPT):
     return prompt_template
 
 
-system_prompt = "You are an advanced assistant that excels at translation. "
+system_prompt = "You are an advanced assistant. "
 instruction = (
-    "Answer the following prompt efficiently in less than 500 words:\n\n {text}"
+    "Answer the following prompt efficiently:\n\n {text}"
 )
 template = get_prompt(instruction)
 # print(template)
@@ -51,7 +51,7 @@ class LlamaChatbot(Chatbot):
             model=model,
             tokenizer=tokenizer,
             device_map="auto",
-            max_new_tokens=512,
+            max_new_tokens=256,
         )
 
         llm = HuggingFacePipeline(pipeline=chatbot_pipeline)
