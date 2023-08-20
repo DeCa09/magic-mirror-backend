@@ -43,7 +43,7 @@ class LlamaChatbot(Chatbot):
             PATH_TO_MODEL_ARTIFACTS,
             use_safetensors=True,
             device_map="auto",
-            load_in_4bit=True,
+            load_in_8bit=True,
         )
 
         chatbot_pipeline = pipeline(
@@ -62,6 +62,7 @@ class LlamaChatbot(Chatbot):
         self.__chatbot = llm_chain
 
         print("Alles laueft wie geschmiert bro.")
+        print("Quantized shit.")
 
     def __call__(self, user_input: str) -> int:
         print("The __call__ method has been executed.")
