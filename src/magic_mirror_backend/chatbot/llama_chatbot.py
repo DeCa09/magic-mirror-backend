@@ -5,6 +5,7 @@ from transformers import AutoTokenizer, LlamaForCausalLM, pipeline
 
 from chatbot.chatbot import Chatbot
 
+import time # TODO: DELETE LATER, ONLY FOR TRACKING TIME
 DIR_PATH = os.path.dirname(os.path.realpath(__file__))
 PATH_TO_MODEL_ARTIFACTS = os.path.join(DIR_PATH, "..", "..", "..", "model_artifacts/")
 
@@ -27,11 +28,11 @@ def get_prompt(instruction, new_system_prompt=DEFAULT_SYSTEM_PROMPT):
     return prompt_template
 
 
-system_prompt = "You are an advanced assistant. "
+system_prompt = "You are an advanced assistant."
 instruction = (
-    "Answer the following prompt efficiently:\n\n {text}"
+    "Reply very quickly, don't think too much about it.:\n\n {text}"
 )
-template = get_prompt(instruction)
+template = get_prompt(instruction, system_prompt)
 # print(template)
 
 
@@ -51,22 +52,28 @@ class LlamaChatbot(Chatbot):
             model=model,
             tokenizer=tokenizer,
             device_map="auto",
-            max_new_tokens=256,
+            max_new_tokens=512,
         )
 
+        
         llm = HuggingFacePipeline(pipeline=chatbot_pipeline)
         prompt = PromptTemplate(template=template, input_variables=["text"])
 
         llm_chain = LLMChain(prompt=prompt, llm=llm)
 
         self.__chatbot = llm_chain
-
+        
         print("Alles laueft wie geschmiert bro.")
         print("Quantized shit.")
 
     def __call__(self, user_input: str) -> int:
+        beginning = time.time()
         print("The __call__ method has been executed.")
         print(
             f"This is the __chatbot property of the llama_chatbot object: {self.__chatbot}"
         )
+        response = self.__chatbot(user_input)
+        end = time.time() - beginning
+        
+        print(f"This is how much time the chatbot took: {end:.2f} seconds")
         return self.__chatbot(user_input)
