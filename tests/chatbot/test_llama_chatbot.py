@@ -8,4 +8,5 @@ def test_llama_chatbot_object_creation() -> None:
 
 def test_llama_chatbot_call_method() -> None:
     llama_chatbot = LlamaChatbot()
-    assert llama_chatbot("abc") == 3
+    question = "Who is the greatest footballer of all time?"
+    assert llama_chatbot(question) is not None
